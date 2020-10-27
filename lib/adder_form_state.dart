@@ -16,6 +16,22 @@ class AdderFormState extends State<AdderForm> {
     super.dispose();
   }
 
+  String validateNumber(String val) {
+    if (val.isEmpty) {
+      return 'Por favor insira algo';
+    }
+    bool valid = true;
+    try {
+      int.parse(val);
+    } catch (Excetpion) {
+      valid = false;
+    }
+    if (!valid) {
+      return 'Por favor insira um número inteiro!';
+    }
+    return null;
+  }
+
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -28,22 +44,12 @@ class AdderFormState extends State<AdderForm> {
               TextFormField(
                 controller: controllera,
                 key: Key('adder_field_a'),
-                validator: (val) {
-                  if (val.isEmpty) {
-                    return 'Por favor insira algo';
-                  }
-                  return null;
-                },
+                validator: validateNumber,
               ),
               TextFormField(
                 controller: controllerb,
                 key: Key('adder_field_b'),
-                validator: (val) {
-                  if (val.isEmpty) {
-                    return 'Por favor insira algo';
-                  }
-                  return null;
-                },
+                validator: validateNumber,
               ),
             ],
           ),
