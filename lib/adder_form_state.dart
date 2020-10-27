@@ -18,7 +18,7 @@ class AdderFormState extends State<AdderForm> {
 
   String validateNumber(String val) {
     if (val.isEmpty) {
-      return 'Por favor insira algo';
+      return 'Por favor insira algo!';
     }
     bool valid = true;
     try {
@@ -56,6 +56,7 @@ class AdderFormState extends State<AdderForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
+              key: Key('adder_result_button'),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   adder.a = int.parse(controllera.text);
@@ -64,8 +65,11 @@ class AdderFormState extends State<AdderForm> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          key: Key('adder_result'),
-                          content: Text(adder.sum.toString()),
+                          key: Key('adder_result_dialog'),
+                          content: Text(
+                              adder.sum.toString(),
+                              key: Key('adder_result_text')
+                          ),
                         );
                       }
                   );
